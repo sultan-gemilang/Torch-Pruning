@@ -287,6 +287,11 @@ def main():
     ##############
     print("----------------- Before Pruning -----------------")
     print(model)
+    num_params = sum(p.numel() for p in model.parameters())
+    print(f"num_params {num_params}")
+    ppl_test = eval_ppl(args, model, tokenizer, device)
+    print(f"wikitext perplexity {ppl_test}")
+    
     text = "Hello world."
     inputs = torch.tensor(tokenizer.encode(text)).unsqueeze(0).to(model.device)
     import torch_pruning as tp 
